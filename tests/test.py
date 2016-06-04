@@ -31,6 +31,21 @@ class TestCreateStore(unittest.TestCase):
         self.assertTrue(calls['reducer'], 'Not reduced')
         self.assertTrue(calls['listener'], 'not notified')
 
+    def test_only_notified_on_state_change(self):
+        calls = {}
+
+        def reducer(state, _):
+            return state
+
+        def listener():
+            calls['listener'] = True
+
+        store = create_store(reducer, {})
+        store.subscribe(listener)
+
+        store.dispatch({})
+
+        self.assertFalse(calls.get('listener', False), 'not notified')
 
 if __name__ == '__main__':
     unittest.main()

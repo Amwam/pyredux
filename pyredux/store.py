@@ -1,4 +1,4 @@
-from __future__ import absolute_import, unicode_literals, print_function
+from __future__ import absolute_import, print_function, unicode_literals
 
 
 class Store(object):
@@ -9,8 +9,10 @@ class Store(object):
         self.listeners = []
 
     def dispatch(self, action):
-        self.__state = self.root_reducer(self.state, action)
-        self.__notify()
+        new_state = self.root_reducer(self.state, action)
+        if new_state != self.state:
+            self.__state = new_state
+            self.__notify()
 
     def __notify(self):
         for listener in self.listeners:

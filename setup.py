@@ -1,4 +1,5 @@
 from distutils.core import setup
+
 setup(
     name='pyredux',
     author='Amit Shah',

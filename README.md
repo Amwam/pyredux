@@ -24,3 +24,11 @@ def my_reducer(state, action):
 store = create_store(my_reducer,  {})
 store.dispatch(({'type': 'MY_ACTION', 'value': 'test'}))
 ```
+
+Listeners can be added via `Store.subscribe`, they will be called when the state is updated with no arguments
+
+```
+def my_listener():
+    ...do something
+store.subscribe(my_listener)
+```
